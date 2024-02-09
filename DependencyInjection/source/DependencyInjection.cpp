@@ -13,7 +13,9 @@ int main()
         ys[i] = x*x;
     }
     std::unique_ptr<Integrator> integratorPtr = std::make_unique<TrapeziumIntegrator>();
-    DiscreteFunction DF(ys, 0, 1, integratorPtr);
+    // DiscreteFunction DF(ys, 0, 1, integratorPtr);
+    DiscreteFunction DF(ys, 0, 1);
+    // DF.setIntegrator(integratorPtr);
 
     std::cout << DF.integrate() << std::endl;
 

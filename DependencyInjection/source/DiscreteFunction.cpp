@@ -3,6 +3,24 @@
 
 DiscreteFunction::DiscreteFunction(std::vector<double> y, double x_min, double x_max, std::unique_ptr<Integrator> &integratorPtr) : max_x(x_max), min_x(x_min)
 {
+    initializeValue(y);
+
+    // integrator = std::make_unique<TrapeziumIntegrator>();
+    // https://github-pages.ucl.ac.uk/research-computing-with-cpp/05libraries/sec01DesigningClasses.html
+    
+    // this->integrator = std::move(integratorPtr);
+    setIntegrator(integratorPtr);
+}
+
+DiscreteFunction::DiscreteFunction(std::vector<double> y, double x_min, double x_max) : max_x(x_max), min_x(x_min) {
+    initializeValue(y);
+}
+
+void DiscreteFunction::setIntegrator(std::unique_ptr<Integrator> &integratorPtr) {
+    this->integrator = std::move(integratorPtr);
+}
+
+void DiscreteFunction::initializeValue(std::vector<double> y) {
     if(y.size() < 3)
     {
         throw std::runtime_error("Discrete function must be represented at at least 3 points.");
@@ -15,16 +33,16 @@ DiscreteFunction::DiscreteFunction(std::vector<double> y, double x_min, double x
     // y (passing in vector) will be left empty
     ys = std::move(y);
 
-    delta_x = (x_max - x_min) / (ys.size()-1);
-
-    // integrator = std::make_unique<TrapeziumIntegrator>();
-    // https://github-pages.ucl.ac.uk/research-computing-with-cpp/05libraries/sec01DesigningClasses.html
-    this->integrator = std::move(integratorPtr);
+    delta_x = (this->max_x - this->min_x) / (ys.size()-1);
 }
 
 double DiscreteFunction::integrate()
 {
-    return integrator->integrate(delta_x, ys);
+    if (integrator) {
+        return integrator->integrate(delta_x, ys);
+    } else {
+        throw std::invalid_argument("Integrator pointer is empty!");
+    }
 }
 
 SimpsonIntegrator::SimpsonIntegrator() {};
