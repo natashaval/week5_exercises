@@ -1,0 +1,5 @@
+/home/natashaval/week5_exercises/DependencyInjection/build/CMakeFiles/edit_cache.dir
+/home/natashaval/week5_exercises/DependencyInjection/build/CMakeFiles/rebuild_cache.dir
+/home/natashaval/week5_exercises/DependencyInjection/build/source/CMakeFiles/DependencyInjection.dir
+/home/natashaval/week5_exercises/DependencyInjection/build/source/CMakeFiles/edit_cache.dir
+/home/natashaval/week5_exercises/DependencyInjection/build/source/CMakeFiles/rebuild_cache.dir
