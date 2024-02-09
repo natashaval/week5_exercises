@@ -6,28 +6,17 @@
 
 int factorial(int n)
 {
-        return n == 0 ? 1 : n * factorial(n-1);
+    if (n < 0) {
+        throw std::runtime_error("Value is negative!");
+    }
+    return n == 0 ? 1 : n * factorial(n-1);
 }
 
-void printProcessedFile(std::string fileName)
+void printProcessedFile(std::vector<int> data)
 {
-    FILE *f = std::fopen(fileName.c_str(), "rw");
-    if(!f) {
-        std::string err_msg = "Failed to open file " + fileName;
-        throw std::runtime_error(err_msg);
-    }
-    std::cout << "File opened." << std::endl;
-
-    int n;
-    while (std::fscanf(f, "%d", &n) != EOF)
+    for (int n : data)
     {
         std::cout << n << "! = " << factorial(n) << std::endl;
-    }
-
-    if (f)
-    {
-        std::fclose(f);
-        std::cout << "File closed." << std::endl;
     }
 }
 
@@ -35,7 +24,8 @@ int main()
 {
     try
     {
-        printProcessedFile("testFile.txt");
+        FileManager fileManager = FileManager("testFile.txt");
+        printProcessedFile(fileManager.getData());
     }
     catch(std::exception &e)
     {
