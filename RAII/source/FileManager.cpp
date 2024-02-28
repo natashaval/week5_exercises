@@ -12,6 +12,7 @@ FileManager::FileManager(std::string fileName) {
 }
 
 FileManager::~FileManager() {
+    // Be careful that you don't try to close a file that isn't open as this will cause a seg fault. 
     if (f)
     {
         std::fclose(f);
