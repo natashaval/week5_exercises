@@ -12,9 +12,11 @@ int factorial(int n)
     return n == 0 ? 1 : n * factorial(n-1);
 }
 
-void printProcessedFile(std::vector<int> data)
+void printProcessedFile(std::string fileName)
 {
-    for (int n : data)
+    FileManager FM(fileName);
+    int n;
+    while(FM.getData(n))
     {
         std::cout << n << "! = " << factorial(n) << std::endl;
     }
@@ -32,12 +34,8 @@ void printProcessedData(std::string fileName) {
 
 int main()
 {
-    // FileManager fileManager = FileManager("testFile.txt");
     try
     {
-        // FileManager fileManager = FileManager("testFile.txt");
-        // printProcessedFile(fileManager.getData());
-
         printProcessedData("testFile.txt");
     }
     catch(std::exception &e)

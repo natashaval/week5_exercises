@@ -22,11 +22,9 @@ FileManager::~FileManager() {
     std::cout << "FileManager destructor" << std::endl;
 }
 
-std::vector<int> FileManager::getData() {
-    std::vector<int> factorialList;
-    int n;
-    while (std::fscanf(f, "%d", &n) != EOF) {
-        factorialList.push_back(n);
+bool FileManager::getData(int &n) {
+    if (std::fscanf(f, "%d", &n) != EOF) {
+        return true;
     }
-    return factorialList;
+    return false;
 }
